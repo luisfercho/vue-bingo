@@ -63,7 +63,7 @@ export default {
       this.numbers.forEach( (e) => {
         numbers.push({
           valor:e,
-          selected: this.selecteds.includes(e)
+          selected: this.pendientes>0?this.selecteds.includes(e):true
         });
       })
       return numbers;
@@ -79,7 +79,7 @@ export default {
         if(containner==null) {
           return false;
         }
-        number = parseInt(containner.innerText);
+        number = containner.innerText;
         this.selectNumber(number);
         this.pendientes=0;
         return false;
@@ -110,6 +110,7 @@ export default {
       }else{
         letra = "O";
       }
+      number = number.toString().replace(/[^\d]/, '');
       return letra+number;
     },
     letterBoard(number){
@@ -180,10 +181,13 @@ export default {
 }
 .numbers{
   padding:5px 0px !important;
-  flex: 0 0 20%;
-  max-width: 20%;
   font-weight: bold;
   text-align: center;
   box-shadow: 0 0 0 1px inset #f5f5f5;
 }
+  @media (max-width:470px){
+    .numbers {
+      min-width: 38px;
+    }
+  }
 </style>
