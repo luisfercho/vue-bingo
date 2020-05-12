@@ -18,7 +18,7 @@
       </div>
       <div class="col-6">
         <span class="d-block mt-3">
-          Numeros pendientes
+          Números pendientes
           {{ pendientes }}
         </span>
       </div>
