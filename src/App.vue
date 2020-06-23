@@ -7,7 +7,7 @@
         </h1>
       </div>
       <div class="col-6">
-        <b-button block @click="randomNumber()" :disabled="pendientes<=0">
+        <b-button block @click="randomNumber()" :disabled="pending<=0">
           Nuevo Número
         </b-button>
       </div>
@@ -19,7 +19,7 @@
       <div class="col-6">
         <span class="d-block mt-3">
           Números pendientes
-          {{ pendientes }}
+          {{ pending }}
         </span>
       </div>
       <div class="col-6">
@@ -51,19 +51,19 @@ export default {
       number:0,
       numbers:[],
       selecteds:[],
-      pendientes:0
+      pending:0
     }
   },
   computed:{
     numerosSelected(){
-      if(this.numbers.length == 0){
+      if(this.numbers.length === 0){
         return [];
       }
       let numbers = [];
       this.numbers.forEach( (e) => {
         numbers.push({
           valor:e,
-          selected: this.pendientes>0?this.selecteds.includes(e):true
+          selected: this.pending>0?this.selecteds.includes(e):true
         });
       })
       return numbers;
@@ -74,14 +74,14 @@ export default {
   },
   methods:{
     randomNumber(){
-      if(this.pendientes<=1){
+      if(this.pending<=1){
         let containner =  document.querySelector(".numbers:not(.selected)");
         if(containner==null) {
           return false;
         }
         number = containner.innerText;
         this.selectNumber(number);
-        this.pendientes=0;
+        this.pending=0;
         return false;
       }
       let number = Math.random() * (76 - 1) + 1;
@@ -89,7 +89,7 @@ export default {
       if(this.selecteds.includes(number)){
         this.randomNumber()
       }else{
-        this.pendientes--;
+        this.pending--;
         this.selectNumber(number);
       }
     },
@@ -114,7 +114,7 @@ export default {
       return letra+number;
     },
     letterBoard(number){
-      if(number < 9){
+      if(number <= 9){
         number = '0'+number;
       }
       return this.showLetter ? this.letter(number) : number;
@@ -126,7 +126,7 @@ export default {
       for(let i = 1; i<=75; i++){
         this.numbers.push(i);
       }
-      this.pendientes = 75;
+      this.pending = 75;
     },
     reset(){
       Swal.fire({
